@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Movie and TV Search</h1>
+    <form method="POST">
+        <input type="text" name="query" value="{{ query }}" placeholder="Enter name">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="results">
+        {% for item in results %}
+            <div class="card">
+                {% if item.poster_path %}
+                    <img src="https://image.tmdb.org/t/p/w200{{ item.poster_path }}">
+                {% endif %}
+                <h2>{{ item.title or item.name }}</h2>
+                <p>Rating: {{ item.vote_average }}</p>
+                <p>{{ item.release_date or item.first_air_date }}</p>
+                <p>{{ item.overview }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
